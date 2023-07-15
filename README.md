@@ -1,4 +1,4 @@
-# BardonChatGPT
+# CodeInterpreterWithinChatGPT
 
 [link-chrome]: https://chrome.google.com/webstore/detail/bardonchatgpt-bard-inside/adegllojomfnieceeanfoblmlfcdpoab 'Chrome Web Store'
 

@@ -35,27 +35,29 @@ async function mount(question: string, promptSource: string, siteConfig: SearchE
     container.classList.add('gpt-light')
   }
 
-  const siderbarContainer = getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery)
+  const siderbarContainer = getPossibleElementByQuerySelector('code.hljs.language-python') //siteConfig.sidebarContainerQuery)
   // console.log('siderbarContainer', siderbarContainer)
   if (siderbarContainer) {
     siderbarContainer.append(container)
-  } else {
-    container.classList.add('sidebar-free')
-    const appendContainer = getPossibleElementByQuerySelector(siteConfig.appendContainerQuery)
-    // console.log('appendContainer', appendContainer)
-    if (appendContainer) {
-      appendContainer.appendChild(container)
-    }
   }
+  // else {
+  //   container.classList.add('sidebar-free')
+  //   const appendContainer = getPossibleElementByQuerySelector(siteConfig.appendContainerQuery)
+  //   // console.log('appendContainer', appendContainer)
+  //   if (appendContainer) {
+  //     appendContainer.appendChild(container)
+  //   }
+  // }
 
   console.log('props at index(mount):', question, promptSource, userConfig.triggerMode)
 
   render(
-    <ChatGPTContainer
-      question={question}
-      promptSource={promptSource}
-      triggerMode={userConfig.triggerMode || 'always'}
-    />,
+    // <ChatGPTContainer
+    //   question={question}
+    //   promptSource={promptSource}
+    //   triggerMode={userConfig.triggerMode || 'always'}
+    // />
+    <div>Hello</div>,
     container,
   )
 }
@@ -105,42 +107,42 @@ const getSiblings = (elm, withTextNodes) => {
 
 window.onload = function () {
   console.log('Page load completed')
-  const textarea = document.getElementById('prompt-textarea')
-  const text_entered_button = getSiblings(textarea).after[0]
-  if (text_entered_button.tagName == 'BUTTON') {
-    text_entered_button.addEventListener('click', (event) => {
-      console.log('Pressed: ' + text_entered_button.tagName)
-      console.log('Now button press to enter(keydown) conversion step', event)
-      textarea.dispatchEvent(
-        new KeyboardEvent('keydown', {
-          bubbles: true,
-          cancelable: true,
-          isTrusted: true,
-          key: 'Enter',
-          code: 'Enter',
-          location: 0,
-          ctrlKey: false,
-        }),
-      )
-      return false
-    })
-  }
+  // const textarea = document.getElementById('prompt-textarea')
+  // const text_entered_button = getSiblings(textarea).after[0]
+  // if (text_entered_button.tagName == 'BUTTON') {
+  //   text_entered_button.addEventListener('click', (event) => {
+  //     console.log('Pressed: ' + text_entered_button.tagName)
+  //     console.log('Now button press to enter(keydown) conversion step', event)
+  //     textarea.dispatchEvent(
+  //       new KeyboardEvent('keydown', {
+  //         bubbles: true,
+  //         cancelable: true,
+  //         isTrusted: true,
+  //         key: 'Enter',
+  //         code: 'Enter',
+  //         location: 0,
+  //         ctrlKey: false,
+  //       }),
+  //     )
+  //     return false
+  //   })
+  // }
 
-  textarea.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault() // Prevent the default Enter key behavior (e.g., line break)
-      const text = event.target.value
-      console.log('Enter key pressed! Text: ' + text)
-      const bodyInnerText = text.trim().replace(/\s+/g, ' ').substring(0, 1500)
-      console.log('final prompt:', bodyInnerText)
-      const gpt_container = document.querySelector('div.chat-gpt-container')
-      if (!gpt_container) mount(bodyInnerText, 'default', siteConfig)
-      else render_already_mounted(bodyInnerText, 'default', siteConfig)
-      if (gpt_container) {
-        gpt_container.scroll({ top: gpt_container.scrollHeight, behavior: 'smooth' })
-      }
-    }
-  })
+  // textarea.addEventListener('keydown', (event) => {
+  //   if (event.key === 'Enter') {
+  //     event.preventDefault() // Prevent the default Enter key behavior (e.g., line break)
+  //     const text = event.target.value
+  //     console.log('Enter key pressed! Text: ' + text)
+  //     const bodyInnerText = text.trim().replace(/\s+/g, ' ').substring(0, 1500)
+  //     console.log('final prompt:', bodyInnerText)
+  //     const gpt_container = document.querySelector('div.chat-gpt-container')
+  //     if (!gpt_container) mount(bodyInnerText, 'default', siteConfig)
+  //     else render_already_mounted(bodyInnerText, 'default', siteConfig)
+  //     if (gpt_container) {
+  //       gpt_container.scroll({ top: gpt_container.scrollHeight, behavior: 'smooth' })
+  //     }
+  //   }
+  // })
 }
 
 window.setInterval(function () {
