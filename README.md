@@ -31,7 +31,6 @@ Enable "Allow access to search page results" in the extension management page
 
 ## Credit
 
-This project is a fork of [xiasongh/jpt](https://github.com/xiasongh/jpt) under The MIT License
-Original repo didnt have any License.
-This repo is also inspired parts of by [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) and https://github.com/wong2/chatgpt-google-extension
+This project is a fork of [xiasongh/jpt](https://github.com/xiasongh/jpt) under The MIT License (Original repo didnt mention any License.)
+This repo is also inspired in parts of by [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) and https://github.com/wong2/chatgpt-google-extension
 
