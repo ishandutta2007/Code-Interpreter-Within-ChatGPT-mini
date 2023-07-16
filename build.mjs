@@ -6,6 +6,10 @@ import postcssPlugin from 'esbuild-style-plugin'
 import fs from 'fs-extra'
 import process from 'node:process'
 import tailwindcss from 'tailwindcss'
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config()
 
@@ -21,9 +25,11 @@ async function runEsbuild() {
       // 'src/codemirror/lib/codemirror.js',
       // 'src/codemirror/mode/python/python.js',
       'src/codemirror/codemirror.min.js',
-      // 'src/codemirror/codemirror.min.css',
+      'src/codemirror/codemirror.min2.css',
       'src/codemirror/python.min.js',
       'src/highlight/highlight.min.js',
+      // 'src/pyodide',
+      // path.resolve(__dirname, './src/pyodide/**'),
       'src/content-script/index.tsx',
       'src/background/index.ts',
       'src/options/index.tsx',
@@ -44,12 +50,15 @@ async function runEsbuild() {
     jsx: 'automatic',
     loader: {
       '.png': 'dataurl',
+      '.css': 'text',
     },
     plugins: [
       postcssPlugin({
-        postcss: {
-          plugins: [tailwindcss, autoprefixer],
-        },
+        // postcss: {
+        //   plugins: [tailwindcss, autoprefixer],
+        //   filter: /\.scss$/,
+        //   type: 'stylesheet'
+        // },
       }),
     ],
   })
@@ -81,6 +90,7 @@ async function build() {
   const commonFiles = [
     { src: 'build/codemirror', dst: 'codemirror' },
     { src: 'build/highlight', dst: 'highlight' },
+    // { src: 'build/pyodide', dst: 'pyodide' },
     { src: 'build/content-script/index.js', dst: 'content-script.js' },
     { src: 'build/content-script/index.css', dst: 'content-script.css' },
     { src: 'build/background/index.js', dst: 'background.js' },

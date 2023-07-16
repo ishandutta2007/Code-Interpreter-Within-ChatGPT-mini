@@ -34,7 +34,7 @@
         "content-script.js"
       ],
       "css": [
-        "codemirror/codemirror.min.css",
+        "codemirror/codemirror.min2.css",
         "content-script.css"
       ]
     }
