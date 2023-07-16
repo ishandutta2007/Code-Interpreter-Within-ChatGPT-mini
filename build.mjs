@@ -1,15 +1,14 @@
 import archiver from 'archiver'
-import autoprefixer from 'autoprefixer'
 import * as dotenv from 'dotenv'
 import esbuild from 'esbuild'
 import postcssPlugin from 'esbuild-style-plugin'
 import fs from 'fs-extra'
 import process from 'node:process'
 // import tailwindcss from 'tailwindcss'
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 // const copyStaticFiles = require('esbuild-copy-static-files')
 import copyStaticFiles from 'esbuild-copy-static-files'
 
@@ -24,16 +23,13 @@ async function deleteOldDir() {
 async function runEsbuild() {
   await esbuild.build({
     entryPoints: [
-      // 'src/codemirror/lib/codemirror.js',
-      // 'src/codemirror/mode/python/python.js',
+      'src/xhr-shim.js',
       'src/codemirror/codemirror.min.js',
       'src/codemirror/codemirror.min2.css',
       'src/codemirror/python.min.js',
       'src/highlight/highlight.min.js',
-      // 'src/pyodide',
-      // path.resolve(__dirname, './src/pyodide/**'),
       'src/content-script/index.tsx',
-      'src/background/index.ts',
+      // 'src/background/index.ts',
       'src/options/index.tsx',
       'src/popup/index.tsx',
     ],
@@ -55,6 +51,15 @@ async function runEsbuild() {
       '.css': 'text',
     },
     plugins: [
+      copyStaticFiles({
+        src: 'src/background/index.ts',
+        dest: 'build/background/index.js',
+        dereference: true,
+        errorOnExist: false,
+        // filter: EXPLAINED_IN_MORE_DETAIL_BELOW,
+        // preserveTimestamps: true,
+        recursive: true,
+      }),
       copyStaticFiles({
         src: 'src/pyodide',
         dest: 'build/pyodide',
@@ -99,6 +104,7 @@ async function build() {
   await runEsbuild()
 
   const commonFiles = [
+    { src: 'build/xhr-shim.js', dst: 'xhr-shim.js' },
     { src: 'build/codemirror', dst: 'codemirror' },
     { src: 'build/highlight', dst: 'highlight' },
     { src: 'build/pyodide', dst: 'pyodide' },
