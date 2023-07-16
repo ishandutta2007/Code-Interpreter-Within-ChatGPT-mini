@@ -18,6 +18,12 @@ async function deleteOldDir() {
 async function runEsbuild() {
   await esbuild.build({
     entryPoints: [
+      // 'src/codemirror/lib/codemirror.js',
+      // 'src/codemirror/mode/python/python.js',
+      'src/codemirror/codemirror.min.js',
+      // 'src/codemirror/codemirror.min.css',
+      'src/codemirror/python.min.js',
+      'src/highlight/highlight.min.js',
       'src/content-script/index.tsx',
       'src/background/index.ts',
       'src/options/index.tsx',
@@ -73,6 +79,8 @@ async function build() {
   await runEsbuild()
 
   const commonFiles = [
+    { src: 'build/codemirror', dst: 'codemirror' },
+    { src: 'build/highlight', dst: 'highlight' },
     { src: 'build/content-script/index.js', dst: 'content-script.js' },
     { src: 'build/content-script/index.css', dst: 'content-script.css' },
     { src: 'build/background/index.js', dst: 'background.js' },
