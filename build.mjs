@@ -5,11 +5,13 @@ import esbuild from 'esbuild'
 import postcssPlugin from 'esbuild-style-plugin'
 import fs from 'fs-extra'
 import process from 'node:process'
-import tailwindcss from 'tailwindcss'
+// import tailwindcss from 'tailwindcss'
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// const copyStaticFiles = require('esbuild-copy-static-files')
+import copyStaticFiles from 'esbuild-copy-static-files'
 
 dotenv.config()
 
@@ -53,6 +55,15 @@ async function runEsbuild() {
       '.css': 'text',
     },
     plugins: [
+      copyStaticFiles({
+        src: 'src/pyodide',
+        dest: 'build/pyodide',
+        dereference: true,
+        errorOnExist: false,
+        // filter: EXPLAINED_IN_MORE_DETAIL_BELOW,
+        // preserveTimestamps: true,
+        recursive: true,
+      }),
       postcssPlugin({
         // postcss: {
         //   plugins: [tailwindcss, autoprefixer],
@@ -90,7 +101,7 @@ async function build() {
   const commonFiles = [
     { src: 'build/codemirror', dst: 'codemirror' },
     { src: 'build/highlight', dst: 'highlight' },
-    // { src: 'build/pyodide', dst: 'pyodide' },
+    { src: 'build/pyodide', dst: 'pyodide' },
     { src: 'build/content-script/index.js', dst: 'content-script.js' },
     { src: 'build/content-script/index.css', dst: 'content-script.css' },
     { src: 'build/background/index.js', dst: 'background.js' },

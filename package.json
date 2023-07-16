@@ -41,6 +41,7 @@
     "chokidar-cli": "^3.0.0",
     "dotenv": "^16.0.3",
     "esbuild": "^0.17.4",
+    "esbuild-copy-static-files": "^0.1.0",
     "esbuild-style-plugin": "^1.6.1",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
